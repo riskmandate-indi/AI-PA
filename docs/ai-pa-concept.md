@@ -165,6 +165,11 @@
 - Messaging inputs (WhatsApp workarounds).
 - Smarter prioritisation and daily briefings.
 
+## 8A. Ideas for later
+
+- Siri access, learned reminder timing, autonomous scanning and Live Activities.
+- Full detail: docs/ideas.md
+
 ## 9. Risks and Open Issues
 
 - On-device model is small. Complex reasoning may be limited.
