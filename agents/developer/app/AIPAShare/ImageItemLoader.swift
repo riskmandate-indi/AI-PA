@@ -11,13 +11,15 @@ enum ImageItemLoader {
             .filter { $0.hasItemConformingToTypeIdentifier(UTType.image.identifier) }
     }
 
-    static func loadImageData(from provider: NSItemProvider) async throws -> Data {
+    /// Returns the raw bytes and the type the share sheet declared for them.
+    /// The bytes are not inspected here.
+    static func loadImageData(from provider: NSItemProvider) async throws -> (data: Data, declaredType: String) {
         let typeIdentifier = ImageTypeSelection.preferredTypeIdentifier(from: provider.registeredTypeIdentifiers)
             ?? UTType.image.identifier
         return try await withCheckedThrowingContinuation { continuation in
             _ = provider.loadDataRepresentation(forTypeIdentifier: typeIdentifier) { data, _ in
                 if let data {
-                    continuation.resume(returning: data)
+                    continuation.resume(returning: (data, typeIdentifier))
                 } else {
                     continuation.resume(throwing: InboxError.notAnImage)
                 }

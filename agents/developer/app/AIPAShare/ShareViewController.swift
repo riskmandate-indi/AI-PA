@@ -5,7 +5,7 @@ import UIKit
 /// Entry point of the Share Extension.
 ///
 /// It does one job: copy the shared images into the App Group inbox,
-/// show a tick and close. All reading and reasoning happens later in
+/// show a tick and close. It never opens, decodes or reads the images. All reading and reasoning happens later in
 /// the main app, because extensions have tight memory and time limits.
 final class ShareViewController: UIViewController {
     private let model = ShareStatusModel()
@@ -55,18 +55,20 @@ final class ShareViewController: UIViewController {
         var lastProblem: String?
         for provider in providers {
             do {
-                let data = try await ImageItemLoader.loadImageData(from: provider)
-                try store.save(imageData: data)
+                let loaded = try await ImageItemLoader.loadImageData(from: provider)
+                try store.save(imageData: loaded.data, declaredType: loaded.declaredType)
                 savedCount += 1
             } catch {
                 lastProblem = Self.message(for: error)
             }
         }
 
-        // Counts only. Never log image content.
-        let saved = savedCount
-        let total = providers.count
-        log.info("Share finished. saved=\(saved, privacy: .public) total=\(total, privacy: .public)")
+        // Fixed text only. No image content, names or other dynamic values.
+        if savedCount == providers.count {
+            log.info("Share finished. All images saved.")
+        } else {
+            log.info("Share finished. Some images were not saved.")
+        }
 
         if savedCount == providers.count {
             return .saved(count: savedCount)

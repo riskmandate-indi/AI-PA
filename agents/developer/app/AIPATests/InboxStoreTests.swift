@@ -10,7 +10,7 @@ struct InboxStoreTests {
         let store = try TestSupport.makeStore()
         let data = TestSupport.pngData()
 
-        let item = try store.save(imageData: data)
+        let item = try store.save(imageData: data, declaredType: "public.png")
 
         #expect(item.url.pathExtension == "png")
         #expect(item.url.deletingLastPathComponent().standardizedFileURL == store.directory.standardizedFileURL)
@@ -20,7 +20,7 @@ struct InboxStoreTests {
     @Test("Saving a JPEG keeps a JPEG extension")
     func savesJPEG() throws {
         let store = try TestSupport.makeStore()
-        let item = try store.save(imageData: TestSupport.jpegData())
+        let item = try store.save(imageData: TestSupport.jpegData(), declaredType: "public.jpeg")
         #expect(["jpeg", "jpg"].contains(item.url.pathExtension))
     }
 
@@ -28,7 +28,7 @@ struct InboxStoreTests {
     func createsFolder() throws {
         let store = try TestSupport.makeStore()
         #expect(!FileManager.default.fileExists(atPath: store.directory.path))
-        try store.save(imageData: TestSupport.pngData())
+        try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
         #expect(FileManager.default.fileExists(atPath: store.directory.path))
     }
 
@@ -36,29 +36,71 @@ struct InboxStoreTests {
     func rejectsEmpty() throws {
         let store = try TestSupport.makeStore()
         #expect(throws: InboxError.emptyData) {
-            try store.save(imageData: Data())
+            try store.save(imageData: Data(), declaredType: "public.png")
         }
         #expect(try store.pendingItems().isEmpty)
     }
 
-    @Test("Data that is not an image is rejected and nothing is written")
-    func rejectsNonImage() throws {
+    @Test("An item declared as text or PDF is rejected and nothing is written", arguments: [
+        "public.plain-text", "com.adobe.pdf", "public.url", "not a type",
+    ])
+    func rejectsNonImageType(declaredType: String) throws {
         let store = try TestSupport.makeStore()
-        let text = Data("Dinner at 9pm on Wednesday the 15th of August.".utf8)
         #expect(throws: InboxError.notAnImage) {
-            try store.save(imageData: text)
+            try store.save(imageData: TestSupport.pngData(), declaredType: declaredType)
         }
         #expect(try store.pendingItems().isEmpty)
     }
 
-    @Test("A truncated image header is rejected")
-    func rejectsGarbageWithImageLikeStart() throws {
+    @Test("The extension copy does not alter or inspect the bytes")
+    func copiesBytesUnchanged() throws {
         let store = try TestSupport.makeStore()
-        let fake = Data([0x89, 0x50, 0x4E, 0x47]) + Data(repeating: 0, count: 8)
-        #expect(throws: InboxError.self) {
-            try store.save(imageData: fake)
+        let bytes = Data("not really a png".utf8)
+        let item = try store.save(imageData: bytes, declaredType: "public.png")
+        #expect(try Data(contentsOf: item.url) == bytes)
+        // The app-side check then refuses to treat it as an image.
+        #expect(ImageInspector.fileExtension(for: try Data(contentsOf: item.url)) == nil)
+    }
+
+    @Test("A generic image type gets a neutral extension")
+    func genericImageType() throws {
+        let store = try TestSupport.makeStore()
+        let item = try store.save(imageData: TestSupport.pngData(), declaredType: "public.image")
+        #expect(!item.url.pathExtension.isEmpty)
+        #expect(try store.pendingItems() == [item])
+    }
+
+    @Test("The inbox refuses new images once the waiting limit is reached")
+    func rejectsWhenFull() throws {
+        let root = try TestSupport.makeTempDirectory()
+        let store = InboxStore(directory: root.appendingPathComponent("Inbox"), maxPending: 2)
+        try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
+        try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
+        #expect(throws: InboxError.inboxFull(limit: 2)) {
+            try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
         }
-        #expect(try store.pendingItems().isEmpty)
+        #expect(try store.pendingItems().count == 2)
+    }
+
+    @Test("The security limits are 20 MB per image, 50 waiting, 7 days")
+    func securityLimits() {
+        #expect(InboxStore.defaultMaxBytes == 20 * 1024 * 1024)
+        #expect(InboxStore.defaultMaxPending == 50)
+        #expect(InboxStore.maxAge == 7 * 24 * 60 * 60)
+    }
+
+    @Test("Images older than 7 days are purged. Newer ones stay")
+    func purgesExpired() throws {
+        let store = try TestSupport.makeStore()
+        let now = TestSupport.date("2026-08-20T12:00:00Z")
+        let old = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png", now: TestSupport.date("2026-08-13T11:59:00Z"))
+        let fresh = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png", now: TestSupport.date("2026-08-13T12:01:00Z"))
+
+        let removed = try store.purgeExpired(now: now)
+
+        #expect(removed == 1)
+        #expect(!FileManager.default.fileExists(atPath: old.url.path))
+        #expect(try store.pendingItems() == [fresh])
     }
 
     @Test("Images over the size limit are rejected")
@@ -66,7 +108,7 @@ struct InboxStoreTests {
         let data = TestSupport.pngData()
         let store = try TestSupport.makeStore(maxBytes: data.count - 1)
         #expect(throws: InboxError.tooLarge(bytes: data.count, limit: data.count - 1)) {
-            try store.save(imageData: data)
+            try store.save(imageData: data, declaredType: "public.png")
         }
         #expect(try store.pendingItems().isEmpty)
     }
@@ -75,7 +117,7 @@ struct InboxStoreTests {
     func acceptsAtLimit() throws {
         let data = TestSupport.pngData()
         let store = try TestSupport.makeStore(maxBytes: data.count)
-        try store.save(imageData: data)
+        try store.save(imageData: data, declaredType: "public.png")
         #expect(try store.pendingItems().count == 1)
     }
 
@@ -83,9 +125,9 @@ struct InboxStoreTests {
     func listsOldestFirst() throws {
         let store = try TestSupport.makeStore()
         let data = TestSupport.pngData()
-        let late = try store.save(imageData: data, now: TestSupport.date("2026-08-15T21:00:00Z"))
-        let early = try store.save(imageData: data, now: TestSupport.date("2026-08-14T08:30:00Z"))
-        let middle = try store.save(imageData: data, now: TestSupport.date("2026-08-15T09:00:00Z"))
+        let late = try store.save(imageData: data, declaredType: "public.png", now: TestSupport.date("2026-08-15T21:00:00Z"))
+        let early = try store.save(imageData: data, declaredType: "public.png", now: TestSupport.date("2026-08-14T08:30:00Z"))
+        let middle = try store.save(imageData: data, declaredType: "public.png", now: TestSupport.date("2026-08-15T09:00:00Z"))
 
         #expect(try store.pendingItems().map(\.id) == [early.id, middle.id, late.id])
     }
@@ -94,8 +136,8 @@ struct InboxStoreTests {
     func uniqueNames() throws {
         let store = try TestSupport.makeStore()
         let now = TestSupport.date("2026-08-15T21:00:00Z")
-        let first = try store.save(imageData: TestSupport.pngData(), now: now)
-        let second = try store.save(imageData: TestSupport.pngData(), now: now)
+        let first = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png", now: now)
+        let second = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png", now: now)
         #expect(first.id != second.id)
         #expect(try store.pendingItems().count == 2)
     }
@@ -109,7 +151,7 @@ struct InboxStoreTests {
     @Test("Files the inbox did not create are ignored")
     func ignoresStrayFiles() throws {
         let store = try TestSupport.makeStore()
-        let item = try store.save(imageData: TestSupport.pngData())
+        let item = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
         try Data("x".utf8).write(to: store.directory.appendingPathComponent("notes.txt"))
         try Data("x".utf8).write(to: store.directory.appendingPathComponent(".hidden.png"))
         try Data("x".utf8).write(to: store.directory.appendingPathComponent("not-a-date_\(UUID().uuidString).png"))
@@ -120,7 +162,7 @@ struct InboxStoreTests {
     @Test("Removing an item deletes its file and is safe to repeat")
     func removes() throws {
         let store = try TestSupport.makeStore()
-        let item = try store.save(imageData: TestSupport.pngData())
+        let item = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
 
         try store.remove(item)
         try store.remove(item)
@@ -132,7 +174,7 @@ struct InboxStoreTests {
     @Test("Saved images are excluded from backup")
     func excludedFromBackup() throws {
         let store = try TestSupport.makeStore()
-        let item = try store.save(imageData: TestSupport.pngData())
+        let item = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png")
         let values = try item.url.resourceValues(forKeys: [.isExcludedFromBackupKey])
         #expect(values.isExcludedFromBackup == true)
     }
@@ -141,7 +183,7 @@ struct InboxStoreTests {
     func receivedAtRoundTrip() throws {
         let store = try TestSupport.makeStore()
         let now = TestSupport.date("2026-08-15T21:00:00Z")
-        let item = try store.save(imageData: TestSupport.pngData(), now: now)
+        let item = try store.save(imageData: TestSupport.pngData(), declaredType: "public.png", now: now)
         #expect(item.receivedAt == now)
         #expect(try store.pendingItems().first?.receivedAt == now)
     }
@@ -177,6 +219,20 @@ struct ImageChecksTests {
         #expect(["jpeg", "jpg"].contains(ImageInspector.fileExtension(for: TestSupport.jpegData()) ?? ""))
     }
 
+    @Test("A truncated PNG header is not an image")
+    func rejectsTruncatedHeader() {
+        let fake = Data([0x89, 0x50, 0x4E, 0x47]) + Data(repeating: 0, count: 8)
+        #expect(ImageInspector.fileExtension(for: fake) == nil)
+    }
+
+    @Test("Declared image types map to a file extension. Others do not")
+    func declaredTypeExtension() {
+        #expect(ImageTypeSelection.fileExtension(forDeclaredType: "public.png") == "png")
+        #expect(ImageTypeSelection.fileExtension(forDeclaredType: "public.image") != nil)
+        #expect(ImageTypeSelection.fileExtension(forDeclaredType: "public.plain-text") == nil)
+        #expect(ImageTypeSelection.fileExtension(forDeclaredType: "") == nil)
+    }
+
     @Test("Text, PDF headers and empty data are not images")
     func rejectsOthers() {
         #expect(ImageInspector.fileExtension(for: Data()) == nil)
@@ -205,7 +261,8 @@ struct ImageChecksTests {
     @Test("Every failure has its own short message")
     func errorMessages() {
         let errors: [InboxError] = [
-            .appGroupUnavailable, .emptyData, .tooLarge(bytes: 2, limit: 1), .notAnImage, .writeFailed(reason: "x"),
+            .appGroupUnavailable, .emptyData, .tooLarge(bytes: 2, limit: 1), .notAnImage, .inboxFull(limit: 50),
+            .writeFailed(reason: "x"),
         ]
         let messages = errors.map(\.userMessage)
         #expect(Set(messages).count == errors.count)

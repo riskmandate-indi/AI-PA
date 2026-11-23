@@ -17,7 +17,10 @@ final class InboxViewModel: ObservableObject {
 
     func refresh() {
         do {
-            state = .loaded(try makeStore().pendingItems())
+            let store = try makeStore()
+            // Security rule: nothing waits in the shared container over 7 days.
+            try store.purgeExpired()
+            state = .loaded(try store.pendingItems())
         } catch let error as InboxError {
             state = .problem(error.userMessage)
         } catch {

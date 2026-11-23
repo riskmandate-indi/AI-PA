@@ -3,6 +3,8 @@ import ImageIO
 import UniformTypeIdentifiers
 
 /// Checks that bytes really are an image, using ImageIO.
+/// App only. The Share Extension must not call this: it copies files
+/// and nothing else (security-vault condition B1).
 /// The check reads the header and pixel size only. It does not decode pixels.
 enum ImageInspector {
     /// Returns a file extension such as "png" or "jpeg" when `data`
@@ -29,5 +31,13 @@ enum ImageTypeSelection {
     static func preferredTypeIdentifier(from registered: [String]) -> String? {
         let imageTypes = registered.filter { UTType($0)?.conforms(to: .image) == true }
         return imageTypes.first { $0 != UTType.image.identifier } ?? imageTypes.first
+    }
+
+    /// File extension for a declared image type, such as "png".
+    /// Returns nil when the declared type is not an image type.
+    /// Looks at the type name only, never at the bytes.
+    static func fileExtension(forDeclaredType identifier: String) -> String? {
+        guard let type = UTType(identifier), type.conforms(to: .image) else { return nil }
+        return type.preferredFilenameExtension ?? "img"
     }
 }

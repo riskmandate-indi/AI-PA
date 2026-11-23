@@ -11,6 +11,17 @@ The first build on a Mac is the real check. Please report any error text back to
 - The AIPA app lists the saved images under "Waiting to be read".
 - No network. No permissions prompts. Reading the images arrives in M2.
 
+## Security gate status
+
+- security-vault replied "approved" with conditions on 2026-11-23. Decision: `agents/security-vault/reviews/permissions-phase1.md`.
+- Conditions already applied in M1:
+  - The extension copies the file only. It does not open or decode the image.
+  - 10 images per share. 20 MB per image. 50 images waiting at most. Over a limit, the pop-up says so.
+  - Inbox files: protected until first unlock, excluded from backup.
+  - Images waiting over 7 days are deleted when the app opens.
+  - Logs contain fixed text only.
+- Conditions for later milestones are tracked in `agents/developer/permissions-request.md`.
+
 ## What you need
 
 - A Mac with Xcode 26 or later (iOS 26 SDK).
@@ -32,8 +43,8 @@ The first build on a Mac is the real check. Please report any error text back to
 ## Steps: run the tests
 
 1. In Xcode press Cmd+U with the `AIPA` scheme and a simulator selected.
-2. Expect: 33 test cases, all green.
-   - `InboxStoreTests.swift`: saving, rejecting, ordering, removing.
+2. Expect: 42 test cases, all green.
+   - `InboxStoreTests.swift`: saving, limits, rejecting, ordering, 7 day purge, removing.
    - `SampleImageTests.swift`: the six sample images are accepted.
 3. Optional, from Terminal in `agents/developer/app/`. Swap in a simulator name you have installed:
    `xcodebuild test -project AIPA.xcodeproj -scheme AIPA -destination 'platform=iOS Simulator,name=iPhone 17'`
@@ -60,6 +71,7 @@ The first build on a Mac is the real check. Please report any error text back to
 - [ ] Share from the screenshot preview (the thumbnail after a screenshot).
 - [ ] AIPA does not appear in the share sheet for a web link or plain text.
 - [ ] Turn on Airplane Mode and repeat the first check. It must still work.
+- [ ] Real iPhone only: lock the phone, unlock it, share again. It must still work.
 
 ## If something does not open or build
 

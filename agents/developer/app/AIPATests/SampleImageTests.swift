@@ -5,7 +5,7 @@ import Testing
 /// Runs the six sample images in agents/developer/test-images/ through the
 /// same save path the Share Extension uses.
 ///
-/// M1 checks only that each sample is accepted and stored unchanged.
+/// M1 checks only that each sample is a readable image and is stored unchanged.
 /// M2 will add text recognition and extraction checks on the same files.
 @Suite("Sample images")
 struct SampleImageTests {
@@ -33,7 +33,10 @@ struct SampleImageTests {
         let data = try Data(contentsOf: url)
         let store = try TestSupport.makeStore()
 
-        let item = try store.save(imageData: data)
+        // The app-side check accepts it as a real image.
+        #expect(ImageInspector.fileExtension(for: data) != nil)
+
+        let item = try store.save(imageData: data, declaredType: "public.png")
 
         #expect(try Data(contentsOf: item.url) == data)
         #expect(try store.pendingItems() == [item])

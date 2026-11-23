@@ -1,6 +1,28 @@
 # Developer: permissions and entitlements request (Phase 1)
 
-Sent to security-vault on 2026-11-23. Status: awaiting reply.
+Sent to security-vault on 2026-11-23.
+Status: **approved with conditions** on 2026-11-23. Decision: agents/security-vault/reviews/permissions-phase1.md
+
+## Conditions tracker
+
+| Condition | Milestone | State |
+|---|---|---|
+| Extension copies only. No parsing | M1 | Done |
+| 20 MB per image, 50 waiting, 10 per share, plain message over limit | M1 | Done |
+| Inbox: `completeUntilFirstUserAuthentication`, no backup | M1 | Done. Real device check pending |
+| Nothing in shared container over 7 days | M1 | Done (purge on app open) |
+| Logs: no dynamic values | M1 | Done |
+| Delete Inbox copy after processing. Move to private container if processing cannot run | M2 | Open |
+| Background outputs `completeUnlessOpen`. Main store `complete` | M2 | Open |
+| Model session has no tools. Typed output. Code validates | M2 | Open |
+| Written confirmation that Foundation Models stays on device | M2 | Open |
+| Synthetic injection test images | M2, M3 | Open |
+| At most 3 automatic items per image | M3 | Open |
+| EventKit: ask at first use. Touch only items the app created | M3 | Open |
+| Notifications: templates only, hidden previews for sensitive types, no links | M3 | Open |
+| Email, Keychain, PDF input, Spotlight, any network: new request first | any | Not started |
+
+The original request follows unchanged.
 Scope: iOS app "AIPA" plus its Share Extension. No network. Apple frameworks only.
 
 Placeholder identifiers (the user may change them, the shape stays the same):

@@ -7,6 +7,7 @@ enum InboxError: Error, Equatable {
     case emptyData
     case tooLarge(bytes: Int, limit: Int)
     case notAnImage
+    case inboxFull(limit: Int)
     case writeFailed(reason: String)
 
     /// Short text shown to the user.
@@ -21,6 +22,8 @@ enum InboxError: Error, Equatable {
             return "That image is larger than \(megabytes) MB. Nothing was saved."
         case .notAnImage:
             return "That item is not an image AIPA can read. Nothing was saved."
+        case .inboxFull(let limit):
+            return "\(limit) images are already waiting. Open AIPA so it can read them, then share again."
         case .writeFailed:
             return "The phone could not store the image. Check free space, then try again."
         }
