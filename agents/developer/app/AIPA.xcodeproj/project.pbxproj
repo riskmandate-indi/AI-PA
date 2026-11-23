@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1FA0000000000000000001A /* AIPAShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A1FA00000000000000000005 /* AIPAShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1FA0000000000000000001B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1FA00000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1FA0000000000000000000E;
+			remoteInfo = AIPAShare;
+		};
+		A1FA0000000000000000001D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1FA00000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1FA0000000000000000000D;
+			remoteInfo = AIPA;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1FA00000000000000000013 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1FA0000000000000000001A /* AIPAShare.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1FA00000000000000000004 /* AIPA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIPA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1FA00000000000000000005 /* AIPAShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AIPAShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1FA00000000000000000006 /* AIPATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIPATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A1FA0000000000000000000C /* Exceptions for "AIPAShare" folder in "AIPAShare" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A1FA0000000000000000000E /* AIPAShare */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A1FA00000000000000000007 /* AIPA */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AIPA;
+			sourceTree = "<group>";
+		};
+		A1FA00000000000000000008 /* AIPAShare */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A1FA0000000000000000000C /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			path = AIPAShare;
+			sourceTree = "<group>";
+		};
+		A1FA00000000000000000009 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A1FA0000000000000000000A /* AIPATests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AIPATests;
+			sourceTree = "<group>";
+		};
+		A1FA0000000000000000000B /* test-images */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = "test-images";
+			path = "../test-images";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1FA00000000000000000011 /* PBXFrameworksBuildPhase */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000015 /* PBXFrameworksBuildPhase */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000018 /* PBXFrameworksBuildPhase */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1FA00000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				A1FA00000000000000000007 /* AIPA */,
+				A1FA00000000000000000008 /* AIPAShare */,
+				A1FA00000000000000000009 /* Shared */,
+				A1FA0000000000000000000A /* AIPATests */,
+				A1FA0000000000000000000B /* test-images */,
+				A1FA00000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1FA00000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1FA00000000000000000004 /* AIPA.app */,
+				A1FA00000000000000000005 /* AIPAShare.appex */,
+				A1FA00000000000000000006 /* AIPATests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1FA0000000000000000000D /* AIPA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1FA00000000000000000022 /* Build configuration list for PBXNativeTarget "AIPA" */;
+			buildPhases = (
+				A1FA00000000000000000010,
+				A1FA00000000000000000011,
+				A1FA00000000000000000012,
+				A1FA00000000000000000013,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1FA0000000000000000001C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A1FA00000000000000000007,
+				A1FA00000000000000000009,
+			);
+			name = AIPA;
+			productName = AIPA;
+			productReference = A1FA00000000000000000004;
+			productType = "com.apple.product-type.application";
+		};
+		A1FA0000000000000000000E /* AIPAShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1FA00000000000000000025 /* Build configuration list for PBXNativeTarget "AIPAShare" */;
+			buildPhases = (
+				A1FA00000000000000000014,
+				A1FA00000000000000000015,
+				A1FA00000000000000000016,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A1FA00000000000000000008,
+				A1FA00000000000000000009,
+			);
+			name = AIPAShare;
+			productName = AIPAShare;
+			productReference = A1FA00000000000000000005;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A1FA0000000000000000000F /* AIPATests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1FA00000000000000000028 /* Build configuration list for PBXNativeTarget "AIPATests" */;
+			buildPhases = (
+				A1FA00000000000000000017,
+				A1FA00000000000000000018,
+				A1FA00000000000000000019,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1FA0000000000000000001E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A1FA0000000000000000000A,
+				A1FA0000000000000000000B,
+			);
+			name = AIPATests;
+			productName = AIPATests;
+			productReference = A1FA00000000000000000006;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1FA00000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					A1FA0000000000000000000D = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					A1FA0000000000000000000E = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					A1FA0000000000000000000F = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = A1FA0000000000000000000D;
+					};
+				};
+			};
+			buildConfigurationList = A1FA0000000000000000001F /* Build configuration list for PBXProject "AIPA" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1FA00000000000000000002;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A1FA00000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1FA0000000000000000000D /* AIPA */,
+				A1FA0000000000000000000E /* AIPAShare */,
+				A1FA0000000000000000000F /* AIPATests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1FA00000000000000000012 /* PBXResourcesBuildPhase */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000016 /* PBXResourcesBuildPhase */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000019 /* PBXResourcesBuildPhase */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1FA00000000000000000010 /* PBXSourcesBuildPhase */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000014 /* PBXSourcesBuildPhase */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1FA00000000000000000017 /* PBXSourcesBuildPhase */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1FA0000000000000000001C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1FA0000000000000000000E /* AIPAShare */;
+			targetProxy = A1FA0000000000000000001B /* PBXContainerItemProxy */;
+		};
+		A1FA0000000000000000001E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1FA0000000000000000000D /* AIPA */;
+			targetProxy = A1FA0000000000000000001D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A1FA00000000000000000020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A1FA00000000000000000021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1FA00000000000000000023 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AIPA/AIPA.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AIPA;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1FA00000000000000000024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AIPA/AIPA.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AIPA;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A1FA00000000000000000026 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AIPAShare/AIPAShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIPAShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIPA;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1FA00000000000000000027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AIPAShare/AIPAShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIPAShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIPA;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A1FA00000000000000000029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIPA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIPA";
+			};
+			name = Debug;
+		};
+		A1FA0000000000000000002A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.riskmandate.aipa.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIPA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIPA";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1FA0000000000000000001F /* Build configuration list for PBXProject "AIPA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1FA00000000000000000020 /* Debug */,
+				A1FA00000000000000000021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1FA00000000000000000022 /* Build configuration list for PBXNativeTarget "AIPA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1FA00000000000000000023 /* Debug */,
+				A1FA00000000000000000024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1FA00000000000000000025 /* Build configuration list for PBXNativeTarget "AIPAShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1FA00000000000000000026 /* Debug */,
+				A1FA00000000000000000027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1FA00000000000000000028 /* Build configuration list for PBXNativeTarget "AIPATests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1FA00000000000000000029 /* Debug */,
+				A1FA0000000000000000002A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1FA00000000000000000001 /* Project object */;
+}
